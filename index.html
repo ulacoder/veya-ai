@@ -315,6 +315,85 @@ footer p{max-width:46em}
 .fallback{display:none}
 .no-gl .fallback{display:block;position:fixed;right:-10vmin;top:50%;width:70vmin;height:70vmin;transform:translateY(-50%);border-radius:50%;z-index:0;
   background:radial-gradient(circle at 66% 48%,#fff2cf 0 4%,#f7c98a 6%,transparent 9%),radial-gradient(circle at 40% 50%,rgba(90,25,8,.7) 0 7%,transparent 14%),radial-gradient(circle,#e88a3e 0,#d4602a 50%,#a33a18 85%,#3a1006 100%);opacity:.5}
+
+/* ---------- mobile polish ---------- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+a,button{-webkit-tap-highlight-color:rgba(60,207,122,.18);touch-action:manipulation}
+.nav .cta{display:inline-flex;align-items:center;justify-content:center;min-height:40px}
+.brand{min-height:40px}
+.copy{min-height:36px}
+.th-s{display:none}
+@media (pointer:coarse){
+  .nav .cta{min-height:44px}
+  .copy{min-height:44px;padding-inline:14px}
+  .btn{min-height:48px}
+  .nav ul a{display:inline-flex;align-items:center;min-height:44px}
+}
+@media (max-width:860px){
+  .nav{padding-left:max(var(--gutter),env(safe-area-inset-left,0px));padding-right:max(var(--gutter),env(safe-area-inset-right,0px))}
+  main{padding-left:max(var(--gutter),env(safe-area-inset-left,0px));padding-right:max(var(--gutter),env(safe-area-inset-right,0px))}
+  .compare{margin-top:36px}
+  .streams,.segs,.road,.model-grid{margin-top:40px}
+  .facts{margin-top:36px}
+}
+/* metrics table: drop the bars and shorten headers so all four columns fit without sideways scroll */
+@media (max-width:600px){
+  table.metrics{min-width:0}
+  table.metrics th{font-size:10.5px;letter-spacing:.03em;padding-right:8px}
+  table.metrics td{padding:12px 8px 12px 0}
+  table.metrics td.cls{font-size:15px}
+  .mbar{display:block;font-size:13px}
+  .mbar span{display:none}
+  .th-l{display:none}.th-s{display:inline}
+  .cm{grid-template-columns:60px repeat(4,minmax(0,1fr));gap:3px}
+  .cm div{font-size:12px}
+  .cm .h{font-size:10px;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+  .cm-axis{flex-wrap:wrap;gap:4px 12px}
+}
+/* model facts: on narrow phones a label/value list reads better than a cramped 2×2 grid */
+@media (max-width:520px){
+  .facts{grid-template-columns:1fr;border-bottom:0}
+  .fact,.fact + .fact,.fact:nth-child(3){display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:baseline;padding:14px 0;border-left:0;border-bottom:1px solid var(--line);border-top:0}
+  .fact .n{font-size:1.25rem}
+  .fact p{margin-top:0;font-size:13.5px}
+  .stat .n{font-size:2.1rem}
+  .card{padding:18px}
+  .mail code{font-size:14px}
+  footer .wrap{font-size:13px}
+}
+/* landscape phones: too short for stacked copy + 3D, so put them side by side */
+@media (max-width:960px) and (max-height:520px) and (orientation:landscape){
+  .hero{padding-block:64px 16px}
+  .hero-main{align-items:center}
+  .hero-copy{max-width:58%}
+  .hero h1{font-size:clamp(1.7rem,9.5vh,2.5rem)}
+  .hero .eyebrow{display:none}
+  .lead-long{display:none}.lead-short{display:inline}
+  .hero .lead{margin-top:12px;font-size:.95rem;line-height:1.5}
+  .hero .btns{margin-top:16px}
+  .hero .btns .btn:not(.solid){display:none}
+  .hero-foot{display:none}
+  .btn{padding:11px 16px}
+  .sticky{padding-top:52px}
+  .device .sticky,.how .sticky{align-items:center;padding-bottom:12px}
+  .dev-copy,.how-copy{max-width:52%;background:none;padding-top:0}
+  .sticky h2{font-size:clamp(1.25rem,6.2vh,1.7rem)}
+  .sticky .eyebrow{margin-bottom:8px}
+  dl.spec .opt{display:none}
+  dl.spec{margin-top:12px} dl.spec dt,dl.spec dd{padding-block:6px}
+  ol.steps{margin-top:12px} ol.steps li{padding:7px 0}
+  .scanhud{top:60px;left:auto;right:max(var(--gutter),env(safe-area-inset-right,0px));text-align:right;display:block}
+  .scanhud b{display:block;font-size:1.4rem}
+  .result{width:min(340px,48vw);padding:14px 14px 12px}
+  .result .dx{margin-top:8px;font-size:1rem}
+  .prob{padding:3px 0;font-size:13px;grid-template-columns:minmax(0,1fr) 80px 38px}
+  .result .note{display:none}
+  .dive .say.fact{bottom:8vh}
+  .pad{padding-block:72px}
+  .contact{padding-bottom:56px}
+  .segs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .seg{padding:18px 16px}
+}
 </style>
 
 </head>
@@ -492,7 +571,7 @@ footer p{max-width:46em}
       <div class="model-grid">
         <div class="tbl-wrap">
           <table class="metrics" id="metrics">
-            <thead><tr><th data-i18n="t89">Класс</th><th data-i18n="t90">Чувствительность</th><th data-i18n="t91">Специфичность</th><th>F1</th></tr></thead>
+            <thead><tr><th data-i18n="t89">Класс</th><th data-i18n="t90"><span class="th-l">Чувствительность</span><span class="th-s">Чувств.</span></th><th data-i18n="t91"><span class="th-l">Специфичность</span><span class="th-s">Специф.</span></th><th>F1</th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
@@ -590,7 +669,7 @@ const lerp = (a,b,t)=>a+(b-a)*t;
 const sstep = (a,b,v)=>{const t=clamp((v-a)/(b-a));return t*t*(3-2*t);};
 
 /* ---------- language ---------- */
-const EN={"t0": "Problem", "t1": "Device", "t2": "How it works", "t3": "Model", "t4": "Economics", "t5": "Platform ↗", "t6": "Pilot", "t7": "Optic disc", "t8": "Macula", "t9": "Vascular arcade", "t10": "Microaneurysm · 0.91", "t11": "Haemorrhage · 0.87", "t12": "Hard exudates · 0.78", "t13": "iPhone · main camera", "t14": "Phone clamp", "t15": "M6 screw and foot · grip", "t16": "Telescope · 11 focus stops", "t17": "Lens ring and seat", "t18": "20 D lens", "t19": "AI analysis", "t20": "Report · right eye", "t21": "15 s", "t22": "Retinopathy, <em>early stage</em>", "t23": "Retinopathy", "t24": "Glaucoma", "t25": "Cataract", "t26": "Recommendation: <b>routine referral to an ophthalmologist</b>", "t27": "Sample Veya report. The doctor makes the decision.", "t28": "AI eye check from a smartphone photo", "t29": "<span>Catch</span><span>blindness</span><span class=\"grad\">early.</span>", "t30": "A nurse clips our attachment onto an iPhone and photographs the back of the eye. In about 15&nbsp;seconds, AI shows the risk of retinopathy, glaucoma and cataract and suggests whether the patient should see an eye doctor. Built for clinics with no eye doctor and no $15,000 camera.", "t31": "A nurse photographs the eye with an iPhone and our attachment. In about 15&nbsp;seconds, AI suggests whether the patient should see an eye doctor.", "t32": "See the device", "t33": "Open the platform ↗", "t34": "<i></i>Scroll", "t35": "Retina · right eye", "t36": "Pupil", "t37": "Click: pupillary reflex", "t38": "Going in through the pupil", "t39": "The fundus is the only place in the body where you can see blood vessels and a nerve without a single incision.", "t40": "01 · Problem", "t41": "Blindness that could have been prevented", "t42": "Early retinopathy and glaucoma cause no pain and no change in vision. People see a doctor only when part of their sight is already gone for good.", "t43": "103<small>M</small>", "t44": "76<small>M</small>", "t45": "adults were living with retinopathy in 2020. By 2045 the figure is projected to reach 161 million.", "t46": "people had glaucoma in 2020, with 111.8 million projected by 2040.", "t47": "lower risk of severe vision loss from retinopathy when it is caught early and treated in time.", "t48": "02 · Why it isn’t solved", "t49": "AI can already read the retina. It has nothing to look through.", "t50": "The FDA-cleared EyeArt system detects retinopathy with 95% sensitivity, according to a meta-analysis of 17 studies and more than 162,000 exams. But it only works with a professional fundus camera.", "t51": "$15–32k", "t52": "is the price of a screening fundus camera such as the Topcon TRC-NW400, pre-owned to new. Most outpatient clinics can’t afford one.", "t53": "Cities", "t54": "Ophthalmologists are concentrated in major cities.", "t55": "Rural &amp; remote sites", "t56": "Rural districts and industrial sites have no screening infrastructure.", "t57": "Referral", "t58": "The patient gets a referral slip and never reaches the specialist.", "t59": "“Many patients never make it to an ophthalmologist. We lose them at the referral stage.”<cite>General practitioner · Veya interview</cite>", "t60": "03 · Device", "t61": "Veya v0.4: our own adapter turns an iPhone into a fundus camera", "t62": "Our own design, 11 parts on a 3D printer. An M6 screw clamp centres the tube on the camera, two telescopic tubes lock the focus in 11 positions, and the 20&nbsp;D lens sits in a centring seat. The clinician holds the phone in one hand and sees the fundus on screen.", "t63": "Optics", "t64": "20 D lens, Ø42.5 mm", "t65": "Parts", "t66": "11 parts, all PLA", "t67": "Fasteners", "t68": "1 × M6 and 7 × M3 screws with nuts", "t69": "Unit cost", "t70": "Clinic price", "t71": "$350 per system", "t72": "04 · How it works", "t73": "15 seconds from image to clinical decision", "t74": "Capture", "t75": "Clip the adapter onto an iPhone and take a fundus image. No specialist is needed at this step.", "t76": "Analysis", "t77": "The model looks for microaneurysms, haemorrhages and changes in the optic disc.", "t78": "Report", "t79": "Risk for each disease, a recommendation and a PDF for the medical record. The doctor decides what happens next.", "t80": "VEYA AI platform ↗", "t81": "05 · Model", "t82": "What the model can do today", "t83": "The model is trained on 12,000 labelled fundus images. Below are per-class metrics on a held-out test set of 1,800 images, not just one headline number.", "t84": "architecture, fine-tuned from ImageNet", "t85": "12,000", "t86": "images from IDRiD and ODIR-5K", "t87": "patient-level split, no leakage", "t88": "overall test accuracy", "t89": "Class", "t90": "Sensitivity", "t91": "Specificity", "t92": "Confusion matrix · rows: actual, columns: predicted", "t93": "n = 1,800", "t94": "green: correct · orange: error", "t95": "Data", "t96": "Held-out test set of 1,800 images, split by patient so no patient appears in both training and test. The Veya v0.4 adapter already captures fundus images, and they feed the next model version.", "t97": "06 · Economics", "t98": "<span class=\"grad\">100×</span> cheaper than a fundus camera", "t99": "Topcon TRC-NW400 fundus camera", "t100": "$15,000–31,990", "t101": "Veya adapter, unit cost", "t102": "per system, one-time payment. Gross margin 77%.", "t103": "Subscription", "t104": "$75<span class=\"muted\" style=\"font-size:.5em\"> / mo</span>", "t105": "Cloud AI analysis, patient history, PDF reports.", "t106": "Public programmes", "t107": "Pilots and public procurement through the Ministry of Health and regional health departments.", "t108": "07 · Who it’s for", "t109": "Where there is no ophthalmologist", "t110": "B2B · clinics", "t111": "Outpatient &amp; primary care", "t112": "Primary care providers in Kazakhstan. Fast patient triage before referral.", "t113": "Patients get lost between referral and visit.", "t114": "B2B · corporates", "t115": "Occupational health", "t116": "Oil &amp; gas, mining, manufacturing. Screening during routine medicals, with no trip to the city.", "t117": "Duty of care for employee health.", "t118": "B2G · government", "t119": "KZ", "t120": "Ministry of Health, regional health departments, rural medicine, school eye checks.", "t121": "No affordable screening infrastructure.", "t122": "08 · Roadmap", "t123": "Where we are now", "t124": "MVP, interviews with doctors and our own v0.4 adapter", "t125": "done", "t126": "v0.4 images, ophthalmologist validation and private clinic pilots", "t127": "now", "t128": "First paid contracts", "t129": "planned", "t130": "20 private clinics across Kazakhstan", "t131": "Incubation: <b>StartUp Orda by Astana Hub</b> · <b>NIS Incubator</b>", "t132": "09 · Pilot", "t133": "Onboarding pilot clinics", "t134": "In July 2026 we interviewed a private clinic therapist about how patients get referred to an ophthalmologist, and in September we tested the system at the NIS Kokshetau medical office. In Q4 2026 we are signing up our first private clinics in the Akmola region. We provide the device, the platform and staff training. You give us feedback.", "t135": "Ulagat Nurtas · Founder, software & AI", "t200": "Abilmansur Tolendi · Co-founder, optical adapter", "t136": "Copy", "t137": "Veya supports clinicians in screening and does not make a diagnosis. The final decision always rests with a specialist.", "t138": "© 2026 Veya · Kokshetau, Kazakhstan"};
+const EN={"t0": "Problem", "t1": "Device", "t2": "How it works", "t3": "Model", "t4": "Economics", "t5": "Platform ↗", "t6": "Pilot", "t7": "Optic disc", "t8": "Macula", "t9": "Vascular arcade", "t10": "Microaneurysm · 0.91", "t11": "Haemorrhage · 0.87", "t12": "Hard exudates · 0.78", "t13": "iPhone · main camera", "t14": "Phone clamp", "t15": "M6 screw and foot · grip", "t16": "Telescope · 11 focus stops", "t17": "Lens ring and seat", "t18": "20 D lens", "t19": "AI analysis", "t20": "Report · right eye", "t21": "15 s", "t22": "Retinopathy, <em>early stage</em>", "t23": "Retinopathy", "t24": "Glaucoma", "t25": "Cataract", "t26": "Recommendation: <b>routine referral to an ophthalmologist</b>", "t27": "Sample Veya report. The doctor makes the decision.", "t28": "AI eye check from a smartphone photo", "t29": "<span>Catch</span><span>blindness</span><span class=\"grad\">early.</span>", "t30": "A nurse clips our attachment onto an iPhone and photographs the back of the eye. In about 15&nbsp;seconds, AI shows the risk of retinopathy, glaucoma and cataract and suggests whether the patient should see an eye doctor. Built for clinics with no eye doctor and no $15,000 camera.", "t31": "A nurse photographs the eye with an iPhone and our attachment. In about 15&nbsp;seconds, AI suggests whether the patient should see an eye doctor.", "t32": "See the device", "t33": "Open the platform ↗", "t34": "<i></i>Scroll", "t35": "Retina · right eye", "t36": "Pupil", "t37": "Click: pupillary reflex", "t38": "Going in through the pupil", "t39": "The fundus is the only place in the body where you can see blood vessels and a nerve without a single incision.", "t40": "01 · Problem", "t41": "Blindness that could have been prevented", "t42": "Early retinopathy and glaucoma cause no pain and no change in vision. People see a doctor only when part of their sight is already gone for good.", "t43": "103<small>M</small>", "t44": "76<small>M</small>", "t45": "adults were living with retinopathy in 2020. By 2045 the figure is projected to reach 161 million.", "t46": "people had glaucoma in 2020, with 111.8 million projected by 2040.", "t47": "lower risk of severe vision loss from retinopathy when it is caught early and treated in time.", "t48": "02 · Why it isn’t solved", "t49": "AI can already read the retina. It has nothing to look through.", "t50": "The FDA-cleared EyeArt system detects retinopathy with 95% sensitivity, according to a meta-analysis of 17 studies and more than 162,000 exams. But it only works with a professional fundus camera.", "t51": "$15–32k", "t52": "is the price of a screening fundus camera such as the Topcon TRC-NW400, pre-owned to new. Most outpatient clinics can’t afford one.", "t53": "Cities", "t54": "Ophthalmologists are concentrated in major cities.", "t55": "Rural &amp; remote sites", "t56": "Rural districts and industrial sites have no screening infrastructure.", "t57": "Referral", "t58": "The patient gets a referral slip and never reaches the specialist.", "t59": "“Many patients never make it to an ophthalmologist. We lose them at the referral stage.”<cite>General practitioner · Veya interview</cite>", "t60": "03 · Device", "t61": "Veya v0.4: our own adapter turns an iPhone into a fundus camera", "t62": "Our own design, 11 parts on a 3D printer. An M6 screw clamp centres the tube on the camera, two telescopic tubes lock the focus in 11 positions, and the 20&nbsp;D lens sits in a centring seat. The clinician holds the phone in one hand and sees the fundus on screen.", "t63": "Optics", "t64": "20 D lens, Ø42.5 mm", "t65": "Parts", "t66": "11 parts, all PLA", "t67": "Fasteners", "t68": "1 × M6 and 7 × M3 screws with nuts", "t69": "Unit cost", "t70": "Clinic price", "t71": "$350 per system", "t72": "04 · How it works", "t73": "15 seconds from image to clinical decision", "t74": "Capture", "t75": "Clip the adapter onto an iPhone and take a fundus image. No specialist is needed at this step.", "t76": "Analysis", "t77": "The model looks for microaneurysms, haemorrhages and changes in the optic disc.", "t78": "Report", "t79": "Risk for each disease, a recommendation and a PDF for the medical record. The doctor decides what happens next.", "t80": "VEYA AI platform ↗", "t81": "05 · Model", "t82": "What the model can do today", "t83": "The model is trained on 12,000 labelled fundus images. Below are per-class metrics on a held-out test set of 1,800 images, not just one headline number.", "t84": "architecture, fine-tuned from ImageNet", "t85": "12,000", "t86": "images from IDRiD and ODIR-5K", "t87": "patient-level split, no leakage", "t88": "overall test accuracy", "t89": "Class", "t90": "<span class=\"th-l\">Sensitivity</span><span class=\"th-s\">Sens.</span>", "t91": "<span class=\"th-l\">Specificity</span><span class=\"th-s\">Spec.</span>", "t92": "Confusion matrix · rows: actual, columns: predicted", "t93": "n = 1,800", "t94": "green: correct · orange: error", "t95": "Data", "t96": "Held-out test set of 1,800 images, split by patient so no patient appears in both training and test. The Veya v0.4 adapter already captures fundus images, and they feed the next model version.", "t97": "06 · Economics", "t98": "<span class=\"grad\">100×</span> cheaper than a fundus camera", "t99": "Topcon TRC-NW400 fundus camera", "t100": "$15,000–31,990", "t101": "Veya adapter, unit cost", "t102": "per system, one-time payment. Gross margin 77%.", "t103": "Subscription", "t104": "$75<span class=\"muted\" style=\"font-size:.5em\"> / mo</span>", "t105": "Cloud AI analysis, patient history, PDF reports.", "t106": "Public programmes", "t107": "Pilots and public procurement through the Ministry of Health and regional health departments.", "t108": "07 · Who it’s for", "t109": "Where there is no ophthalmologist", "t110": "B2B · clinics", "t111": "Outpatient &amp; primary care", "t112": "Primary care providers in Kazakhstan. Fast patient triage before referral.", "t113": "Patients get lost between referral and visit.", "t114": "B2B · corporates", "t115": "Occupational health", "t116": "Oil &amp; gas, mining, manufacturing. Screening during routine medicals, with no trip to the city.", "t117": "Duty of care for employee health.", "t118": "B2G · government", "t119": "KZ", "t120": "Ministry of Health, regional health departments, rural medicine, school eye checks.", "t121": "No affordable screening infrastructure.", "t122": "08 · Roadmap", "t123": "Where we are now", "t124": "MVP, interviews with doctors and our own v0.4 adapter", "t125": "done", "t126": "v0.4 images, ophthalmologist validation and private clinic pilots", "t127": "now", "t128": "First paid contracts", "t129": "planned", "t130": "20 private clinics across Kazakhstan", "t131": "Incubation: <b>StartUp Orda by Astana Hub</b> · <b>NIS Incubator</b>", "t132": "09 · Pilot", "t133": "Onboarding pilot clinics", "t134": "In July 2026 we interviewed a private clinic therapist about how patients get referred to an ophthalmologist, and in September we tested the system at the NIS Kokshetau medical office. In Q4 2026 we are signing up our first private clinics in the Akmola region. We provide the device, the platform and staff training. You give us feedback.", "t135": "Ulagat Nurtas · Founder, software & AI", "t200": "Abilmansur Tolendi · Co-founder, optical adapter", "t136": "Copy", "t137": "Veya supports clinicians in screening and does not make a diagnosis. The final decision always rests with a specialist.", "t138": "© 2026 Veya · Kokshetau, Kazakhstan"};
 const STR={
   ru:{met:["Норма","Ретинопатия","Глаукома","Катаракта"],cl:["Норма","Ретин.","Глаукома","Катар."],
       ch:["Введение","Введение","Проблема","Почему не решено","Устройство","Как работает","Модель","Экономика","Для кого","Дорожная карта","Пилот"],
@@ -643,8 +722,9 @@ $('#copyBtn').addEventListener('click',()=>{
 
 /* ---------- scroll model ---------- */
 const secs=[...document.querySelectorAll('[data-sec]')];
-let tops=[],heights=[],vw=innerWidth,vh=innerHeight,mobile=vw<860;
-function measure(){vw=innerWidth;vh=innerHeight;mobile=vw<860;
+const sideMQ=matchMedia('(max-width:960px) and (max-height:520px) and (orientation:landscape)');
+let tops=[],heights=[],vw=innerWidth,vh=innerHeight,side=sideMQ.matches,mobile=vw<860&&!side;
+function measure(){vw=innerWidth;vh=innerHeight;side=sideMQ.matches;mobile=vw<860&&!side;
   tops=secs.map(s=>s.getBoundingClientRect().top+scrollY);heights=secs.map(s=>s.offsetHeight);}
 function scrollT(){const y=scrollY;let i=0;
   for(let k=0;k<secs.length;k++){if(y>=tops[k])i=k;}
@@ -960,21 +1040,21 @@ function layout(){
   const gut=parseFloat(getComputedStyle(mainEl).paddingLeft)||16;LAY.gut=gut;
   const wrapR=Math.min(vw-gut,(vw+1240)/2);
   const hc=heroCopyEl.getBoundingClientRect(),hTop=hc.top+scrollY;
-  if(!mobile){const x0=hc.right+32,x1=wrapR,y0=84,y1=vh-120;
+  if(!mobile){const x0=hc.right+32,x1=wrapR,y0=side?60:84,y1=side?vh-20:vh-120;
     LAY.hero={cx:(x0+x1)/2,cy:(y0+y1)/2,r:Math.max(50,Math.min((x1-x0)*.44,(y1-y0)*.44,300))};}
   else{const y0=70,y1=hTop-14;LAY.hero={cx:vw/2,cy:(y0+y1)/2,r:Math.max(34,Math.min(vw*.34,(y1-y0)*.46))};}
   if(!mobile){const r=howCopyEl.getBoundingClientRect();const x0=r.right+40,x1=wrapR;
-    const size=Math.max(200,Math.min(.86*Math.min(vw,vh),(x1-x0)/.94,(vh-170)/.94));
+    const size=Math.max(side?120:200,Math.min(.86*Math.min(vw,vh),(x1-x0)/.94,(vh-(side?90:170))/.94));
     LAY.how={s:size/Math.min(vw,vh),x:((x0+x1)/2-vw/2)/vw,y:.03};
     const cardH=resultEl.offsetHeight||250;const sizeR=Math.max(160,Math.min(size,(vh-70-56-cardH-18)/.94));
-    LAY.howR={s:sizeR/Math.min(vw,vh),x:LAY.how.x,y:((70+sizeR*.47+6)-vh/2)/vh};}
+    LAY.howR=side?{s:LAY.how.s,x:LAY.how.x,y:LAY.how.y}:{s:sizeR/Math.min(vw,vh),x:LAY.how.x,y:((70+sizeR*.47+6)-vh/2)/vh};}
   else{const ch=howCopyEl.offsetHeight;const y0=100,y1=vh-64-ch-6;const size=Math.max(120,Math.min((vw-24)/.94,(y1-y0)/.94));
     LAY.how={s:size/Math.min(vw,vh),x:0,y:((y0+y1)/2-vh/2)/vh};
     const cardH=resultEl.offsetHeight||250;const y1r=Math.min(y1,vh-64-cardH-10);const sizeR=Math.max(110,Math.min((vw-24)/.94,(y1r-y0)/.94));
     LAY.howR={s:sizeR/Math.min(vw,vh),x:0,y:((y0+y1r)/2-vh/2)/vh};}
   const ppw=vh/(2*10.5*TAN);
   if(!mobile){const r=devCopyEl.getBoundingClientRect();const x0=r.right+24,x1=vw-16;
-    LAY.dev={sc:Math.max(.3,Math.min(.95,(x1-x0)/(ppw*4.6),(vh-150)/(ppw*2.7))),x:((x0+x1)/2-vw/2)/ppw,y:-.3};}
+    LAY.dev={sc:Math.max(.3,Math.min(.95,(x1-x0)/(ppw*4.6),(vh-(side?70:150))/(ppw*2.7))),x:((x0+x1)/2-vw/2)/ppw,y:side?-.1:-.3};}
   else{const ch=devCopyEl.offsetHeight;const y0=64,y1=vh-64-ch;
     LAY.dev={sc:Math.max(.2,Math.min(.5,(vw-24)/(ppw*4.6),(y1-y0)/(ppw*2.7))),x:0,y:(vh/2-(y0+y1)/2)/ppw};}
 }
@@ -1013,6 +1093,8 @@ function resize(){relayout();
   eyeCam.aspect=vw/vh;eyeCam.updateProjectionMatrix();adCam.aspect=vw/vh;adCam.updateProjectionMatrix();
   fMat.uniforms.uRes.value.set(vw,vh);fMat.uniforms.uDpr.value=dpr;}
 addEventListener('resize',resize);resize();
+if(sideMQ.addEventListener)sideMQ.addEventListener('change',resize);
+addEventListener('orientationchange',()=>setTimeout(resize,250));
 addEventListener('load',relayout);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(relayout);
 
@@ -1116,7 +1198,7 @@ function frame(now){
   const aOp=showF?sstep(1.32,1.42,t)*(1-sstep(1.58,1.66,t)):0;
   {const L=[];
   [['disc',fundus.disc,1],['macula',fundus.macula,-1],['arcade',fundus.arcade,-1]].forEach(([k,f,dir])=>{
-    const el=anat[k];const ao=(mobile&&k==='arcade')?0:aOp;el.style.opacity=ao.toFixed(3);
+    const el=anat[k];const ao=((mobile||side)&&k==='arcade')?0:aOp;el.style.opacity=ao.toFixed(3);
     if(ao<=0)return;
     const [x,y]=toScr(f);const w=el.offsetWidth,h=el.offsetHeight;
     let right=dir>0;let lx=right?x+fc.size*.035:x-w-fc.size*.02,ly=y-h/2;
@@ -1154,9 +1236,10 @@ function frame(now){
   result.style.opacity=rOp.toFixed(3);
   if(rOp>0&&showF){const cw=resultEl.offsetWidth,ch=resultEl.offsetHeight;let rx,ry;
     if(mobile){rx=LAY.gut;ry=vh-64-ch;}
+    else if(side){rx=LAY.gut;ry=Math.max(56,Math.min(vh-ch-10,(vh-ch)/2+20));}
     else{rx=fc.x-cw/2;ry=fc.y+fc.size*.47+14;rx=Math.max(8,Math.min(vw-cw-8,rx));ry=Math.min(vh-ch-12,ry);}
     resultEl.style.transform=`translate(${rx.toFixed(1)}px,${ry.toFixed(1)}px)`;}
-  if(mobile)howCopyEl.style.opacity=(1-sstep(5.4,5.46,t)*(1-sstep(5.66,5.74,t))).toFixed(3);else howCopyEl.style.opacity='';
+  if(mobile||side)howCopyEl.style.opacity=(1-sstep(5.4,5.46,t)*(1-sstep(5.66,5.74,t))).toFixed(3);else howCopyEl.style.opacity='';
   heroFootEl.style.opacity=(1-sstep(.04,.2,tRaw)).toFixed(3);
   navEl.classList.toggle('solid',scrollY>40);
 
@@ -1175,7 +1258,7 @@ function frame(now){
     rig.updateMatrixWorld();
     const lop=sstep(.6,.95,ex)*wA;
     const PL=[];
-    for(const k in ANCH){const el=partEls[k];const lk=(mobile&&(k==='screw'||k==='tubes'||k==='ring'))?0:lop;el.style.opacity=lk.toFixed(3);
+    for(const k in ANCH){const el=partEls[k];const lk=((mobile||side)&&(k==='screw'||k==='tubes'||k==='ring'))?0:lop;el.style.opacity=lk.toFixed(3);
       if(lk>0){const a=ANCH[k],o=EXP[ANCH_EXP[k]],e=EXE[ANCH_EXP[k]];
         tmpV.set(a[0]+o[0]*e,a[1]+o[1]*e,a[2]+o[2]*e);
         tmpV.applyMatrix4(asm.matrixWorld).project(adCam);
